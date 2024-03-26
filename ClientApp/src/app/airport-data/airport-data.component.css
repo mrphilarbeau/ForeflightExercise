@@ -1,0 +1,29 @@
+.sub-header-text {
+    font-size: smaller;
+}
+
+.card-header {
+    font-weight: bold;
+}
+
+.header {
+    margin-top: 20px;
+}
+
+.weather-time {
+    background-color: lightgray;
+}
+
+.best-wind {
+    font-size: x-small;
+    background-color: green;
+    color: white;
+}
+
+.sub-info {
+    padding-left: 25px;
+}
+
+.search {
+    padding-bottom: 30px;
+}
