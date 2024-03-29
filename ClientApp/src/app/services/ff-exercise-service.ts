@@ -9,9 +9,8 @@ export class FFExerciseService
     private baseUrl: string;
     private headers: HttpHeaders;
 
-    constructor(private _http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+    constructor(private _http: HttpClient) {
 
-        //this.baseUrl = baseUrl;// + 'api/';
         this.baseUrl = 'https://localhost:7251/api/';
 
         this.headers = new HttpHeaders();
@@ -20,7 +19,7 @@ export class FFExerciseService
         this.headers.append('Access-Control-Allow-Origin', '*');
     }
 
-    public GetCurrentAirportInfo = (airportCodes: string): Observable<CurrentAirportInfo[]> => {
+    public getCurrentAirportInfo = (airportCodes: string): Observable<CurrentAirportInfo[]> => {
         const fullActionUrl = this.baseUrl + 'airportinfo?airportList=' + airportCodes;
         return this._http.get(fullActionUrl, 
         { headers: this.headers })

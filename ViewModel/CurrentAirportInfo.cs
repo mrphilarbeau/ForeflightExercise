@@ -12,26 +12,18 @@ namespace ForeflightExercise.ViewModel
         public string Longitude { get; set; }
         public WeatherReport WeatherReport { get; set; }
 
-        public List<CurrentAirportInfo> MapAirportInfoToCurrentAirportInfo(List<WeatherReport> allWeatherReports, List<AirportData> allAirportData)
+        public CurrentAirportInfo MapAirportInfoToCurrentAirportInfo(WeatherReport weatherReport, AirportData airportData)
         {
-            var allCurrentAirportInfo = new List<CurrentAirportInfo>();
-            
-            // I probably should have created an object that held the weather and airport details
-            // then I could have used foreach here and not indexes
-            for(int i=0;i<allAirportData.Count;i++)
+            return new CurrentAirportInfo
             {
-                allCurrentAirportInfo.Add(new CurrentAirportInfo {
-                    Identifier = allAirportData[i].Icao,
-                    Latitude = Math.Round(allAirportData[i].Latitude, 2).ToString(),
-                    Longitude = Math.Round(allAirportData[i].Longitude, 2).ToString(),
-                    Name = allAirportData[i].Name,
-                    Runways = allAirportData[i].Runways,
-                    BestRunway = allAirportData[i].BestRunway,
-                    WeatherReport = allWeatherReports[i]
-                });
-            }
-
-            return allCurrentAirportInfo;
+                Identifier = airportData.Icao,
+                Latitude = Math.Round(airportData.Latitude, 2).ToString(),
+                Longitude = Math.Round(airportData.Longitude, 2).ToString(),
+                Name = airportData.Name,
+                Runways = airportData.Runways,
+                BestRunway = airportData.BestRunway,
+                WeatherReport = weatherReport
+            };
         }
     }
 }

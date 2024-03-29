@@ -6,7 +6,13 @@ namespace ForeflightExercise.Services
 {
     public class WeatherService : IWeatherService
     {
-        public async Task<WeatherReport> GetWeatherReportByAirportCodeAsync(string airportCode, string weatherReportUrl)
+        /// <summary>
+        /// Gets weather report for a specific airport
+        /// </summary>
+        /// <param name="airportCode">airport code</param>
+        /// <param name="weatherReportUrl">URL at foreflight to pull data from</param>
+        /// <returns>Airport Weather Report</returns>
+        public virtual async Task<WeatherReport> GetWeatherReportByAirportCodeAsync(string airportCode, string weatherReportUrl)
         {
             using (var client = new HttpClient())
             {

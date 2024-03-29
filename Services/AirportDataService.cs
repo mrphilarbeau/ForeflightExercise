@@ -6,7 +6,13 @@ namespace ForeflightExercise.Services
 {
     public class AirportDataService : IAirportDataService
     {
-        public async Task<AirportData> GetAirportDataByCodeAsync(string airportCode, string airportDataUrl)
+        /// <summary>
+        /// Get airport data based on airport code
+        /// </summary>
+        /// <param name="airportCode">airport code</param>
+        /// <param name="airportDataUrl">URL at forflight to retrieve data from</param>
+        /// <returns>Airport data</returns>
+        public virtual async Task<AirportData> GetAirportDataByCodeAsync(string airportCode, string airportDataUrl)
         {
             using (var client = new HttpClient())
             {

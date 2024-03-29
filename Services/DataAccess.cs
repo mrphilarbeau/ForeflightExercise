@@ -9,14 +9,16 @@
             _configuration = configuration;
         }
 
-        public string GetWeatherReportUrl()
+        public DataAccess() { }
+
+        public virtual string GetWeatherReportUrl()
         {
             var weatherReportUrl = _configuration.GetValue<string>("AppSettings:WeatherReportUrl");
 
             return weatherReportUrl;
         }
 
-        public string GetAirportDataUrl()
+        public virtual string GetAirportDataUrl()
         {
             var airportDataUrl = _configuration.GetValue<string>("AppSettings:AirportDataUrl");
 

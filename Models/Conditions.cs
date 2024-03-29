@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace ForeflightExercise.Models
+﻿namespace ForeflightExercise.Models
 {
     public class Conditions
     {

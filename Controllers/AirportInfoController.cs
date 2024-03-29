@@ -22,11 +22,13 @@ namespace ForeflightExercise.Controllers
         /// <param name="airportList">Comma delimted list of airport codes</param>
         /// <returns>Current airport data with weather report</returns>
         [HttpGet]
-        public async Task<List<CurrentAirportInfo>> Get(string airportList)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<List<CurrentAirportInfo>>> Get(string airportList)
         {
             if (string.IsNullOrWhiteSpace(airportList))
             {
-                return null;
+                return BadRequest();
             }
 
             var currentAirportInfo = await _airportInfoService.GetAirportInfoByAirportCodesAsync(airportList);

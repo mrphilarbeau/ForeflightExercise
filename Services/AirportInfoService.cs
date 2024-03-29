@@ -16,26 +16,35 @@ namespace ForeflightExercise.Services
             _airportDataService = airportDataService;
         }
 
+        /// <summary>
+        /// Take a comma delimited string of airport codes and return relevant airport data
+        /// </summary>
+        /// <param name="airportCodes">comma delimted string of airport codes</param>
+        /// <returns>List of current airport data for all airports requested</returns>
         public async Task<List<CurrentAirportInfo>> GetAirportInfoByAirportCodesAsync(string airportCodes)
         {
             var weatherReportUrl = _dataAccess.GetWeatherReportUrl();
             var airportDataUrl = _dataAccess.GetAirportDataUrl();
 
-            var allWeatherReports = new List<WeatherReport>();
-            var allAirportData = new List<AirportData>();
+            var currentAirportInfo = new List<CurrentAirportInfo>();
 
             foreach (var airportCode in airportCodes.Split(','))
             {
                 var weatherReport = await _weatherService.GetWeatherReportByAirportCodeAsync(airportCode, weatherReportUrl);
                 var airportData = await _airportDataService.GetAirportDataByCodeAsync(airportCode, airportDataUrl);
                 airportData.BestRunway = DetermineBestRunway(weatherReport.Report.Conditions.Wind.Direction, airportData.Runways);
-                allWeatherReports.Add(weatherReport);
-                allAirportData.Add(airportData);
+                currentAirportInfo.Add(new CurrentAirportInfo().MapAirportInfoToCurrentAirportInfo(weatherReport, airportData));
             }
             
-            return new CurrentAirportInfo().MapAirportInfoToCurrentAirportInfo(allWeatherReports, allAirportData); 
+            return currentAirportInfo; 
         }
 
+        /// <summary>
+        /// Takes the direction the wind is blowing and runways at an airport and determines best runway to land or take off from
+        /// </summary>
+        /// <param name="windDirection">Wind direction</param>
+        /// <param name="runways">Runways at given airport</param>
+        /// <returns>Best runway for take off or landing</returns>
         private string DetermineBestRunway(int windDirection, List<Runway> runways)
         {
             var runwayWindMap = new Dictionary<string, int>();

@@ -11,8 +11,9 @@ import { CurrentAirportInfo } from '../models/current-airport-info.model';
 export class AirportDataComponent implements OnInit {
   public currentAirportInfo: CurrentAirportInfo[] = [];
   searchAirportCodes: string = '';
+  panelOpenState: boolean = true;
 
-  constructor(private ffExerciseService: FFExerciseService) { }
+  constructor(public ffExerciseService: FFExerciseService) { }
 
   ngOnInit(): void {
     
@@ -29,8 +30,8 @@ export class AirportDataComponent implements OnInit {
   }
 
   searchAirports(airportCodes: string) {
-    this.ffExerciseService.GetCurrentAirportInfo(airportCodes).subscribe(result => {
-      this.currentAirportInfo = result; console.log(result); console.log(this.currentAirportInfo);
+    this.ffExerciseService.getCurrentAirportInfo(airportCodes).subscribe(result => {
+      this.currentAirportInfo = result; 
     }, error => console.error(error));
   }
    
