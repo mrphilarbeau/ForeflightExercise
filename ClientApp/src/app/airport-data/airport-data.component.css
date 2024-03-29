@@ -1,3 +1,11 @@
+h5 {
+    font-weight: 400;
+}
+
+div {
+    font-size: 14px;
+}
+
 .sub-header-text {
     font-size: smaller;
 }
@@ -27,3 +35,30 @@
 .search {
     padding-bottom: 30px;
 }
+
+.mat-expansion-panel {
+    width: 550px;
+}
+
+.mat-expansion-panel-header {
+    font-weight: 500;
+}
+
+.mat-expansion-panel-header.mat-expanded,
+.mat-expansion-panel-header.mat-expanded:hover,
+.mat-expansion-panel-header.mat-expanded:focus {
+    background-color: lightgray;
+}
+
+.mat-expansion-panel-header-title {
+    display: block;
+    text-align: center;
+}
+
+.mat-panel-title {
+    font: bold;
+}
+
+.mat-accordion .mat-expansion-panel{
+    margin-bottom: 10px;
+  }

@@ -15,60 +15,62 @@
 
 <p *ngIf="!currentAirportInfo"><em>Loading...</em></p>
 
-<div class="container">
-  <div class="row">
-    <div class="card col-xs-12 col-md-6" *ngFor="let ai of currentAirportInfo">
-      <div class="card-header text-center">
+
+
+<mat-accordion *ngIf="currentAirportInfo">
+  <mat-expansion-panel *ngFor="let ai of currentAirportInfo">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
         <div>{{ ai.identifier }}: {{ ai.name }}</div>
         <div class="sub-header-text text-muted">{{ ai.latitude }}&deg;N/{{ ai.longitude }}&deg;W</div>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    
+    <div class="card-body row">
+      <div class="col-xs-12">
+          <h5>Runways</h5>
       </div>
-      <div class="card-body row">
-        <div class="col-xs-12">
-            <h5>Runways</h5>
-        </div>
-        <div class="sub-info row" *ngFor="let r of ai.runways">
-            <div class="col-6">Rwy {{ r.name }} <span class="best-wind" *ngIf="r.name === ai.bestRunway">Best Wind</span></div>
-            <div class="col-6">Rwy {{ r.recipName }} <span class="best-wind" *ngIf="r.recipName === ai.bestRunway">Best Wind</span></div>
-        </div>
-
-        <div class="col-xs-12 header">
-            <h5>Weather</h5>
-        </div>
-        <div class="sub-info row">
-            <div class="weather-time col-xs-12">Latest Weather</div>
-            <div class="col-6">Temp</div>
-            <div class="col-6">{{ ai.weatherReport.report.conditions.tempF }}&deg; (F)</div>
-            
-            <div class="col-6">Relative Humidity</div>
-            <div class="col-6">{{ ai.weatherReport.report.conditions.relativeHumidity }}%</div>
-            
-            <div class="col-6">Cloud Coverage</div>
-            <div class="col-6">{{ ai.weatherReport.report.conditions.cloudLayers[0].coverage }}</div>
-            
-            <div class="col-6">Visibility</div>
-            <div class="col-6">{{ ai.weatherReport.report.conditions.visibility.distanceSm }} (SM)</div>
-            
-            <div class="col-6">Wind Speed</div>
-            <div class="col-6">{{ ai.weatherReport.report.conditions.wind.speedKts * 1.15 | number:'1.0-0' }} (MPH)</div>
-            
-            <!-- I need further clarification on this: (cardinal directions to secondary-intercardinal precision) -->
-            <div class="col-6">Wind Direction</div>
-            <div class="col-6">{{ ai.weatherReport.report.conditions.wind.direction }}&deg;</div>
-
-            <ng-container *ngFor="let f of ai.weatherReport.report.forecast.conditions; let i = index;">
-                <!-- I decided to bring all the forecast conditions over and limit to node 2 and 3 here -->
-                <ng-container *ngIf="i === 1 || i === 2">
-                    <div class="weather-time col-xs-12">{{ getWeatherTimeOffset(ai.weatherReport.report.forecast.period.dateStart, f.dateIssued) }}</div>
-                
-                    <div class="col-6">Wind Speed</div>
-                    <div class="col-6">{{ f.wind.speedKts * 1.15 | number:'1.0-0' }} (MPH)</div>
-                
-                    <div class="col-6">Wind Direction</div>
-                    <div class="col-6">{{ f.wind.direction }}&deg;</div>
-                </ng-container>                
-            </ng-container>
-        </div>
+      <div class="sub-info row" *ngFor="let r of ai.runways">
+          <div class="col-6">Rwy {{ r.name }} <span class="best-wind" *ngIf="r.name === ai.bestRunway">Best Wind</span></div>
+          <div class="col-6">Rwy {{ r.recipName }} <span class="best-wind" *ngIf="r.recipName === ai.bestRunway">Best Wind</span></div>
       </div>
-    </div>    
-  </div>
-</div>
+
+      <div class="col-xs-12 header">
+          <h5>Weather</h5>
+      </div>
+      <div class="sub-info row">
+          <div class="weather-time col-xs-12">Latest Weather</div>
+          <div class="col-6">Temp</div>
+          <div class="col-6">{{ ai.weatherReport.report.conditions.tempF }}&deg; (F)</div>
+          
+          <div class="col-6">Relative Humidity</div>
+          <div class="col-6">{{ ai.weatherReport.report.conditions.relativeHumidity }}%</div>
+          
+          <div class="col-6">Cloud Coverage</div>
+          <div class="col-6">{{ ai.weatherReport.report.conditions.cloudLayers[0].coverage }}</div>
+          
+          <div class="col-6">Visibility</div>
+          <div class="col-6">{{ ai.weatherReport.report.conditions.visibility.distanceSm }} (SM)</div>
+          
+          <div class="col-6">Wind Speed</div>
+          <div class="col-6">{{ ai.weatherReport.report.conditions.wind.speedKts * 1.15 | number:'1.0-0' }} (MPH)</div>
+          
+          <div class="col-6">Wind Direction</div>
+          <div class="col-6">{{ ai.weatherReport.report.conditions.wind.direction }}&deg;</div>
+
+          <ng-container *ngFor="let f of ai.weatherReport.report.forecast.conditions; let i = index;">
+              <ng-container *ngIf="i === 1 || i === 2">                
+                <div class="weather-time col-xs-12">{{ getWeatherTimeOffset(ai.weatherReport.report.forecast.period.dateStart, f.dateIssued) }}</div>
+              
+                <div class="col-6">Wind Speed</div>
+                <div class="col-6">{{ f.wind.speedKts * 1.15 | number:'1.0-0' }} (MPH)</div>
+              
+                <div class="col-6">Wind Direction</div>
+                <div class="col-6">{{ f.wind.direction }}&deg;</div>
+              </ng-container>                
+          </ng-container>
+      </div>
+    </div>
+
+  </mat-expansion-panel>
+</mat-accordion>
